@@ -1,0 +1,168 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentTutorial.id">
+    <h4>Employee List</h4>
+    <div>
+      <label><strong>Employee ID:</strong></label> {{ currentTutorial.title }}
+    </div>
+    <div>
+      <label><strong>Employee Name:</strong></label>
+      {{ currentTutorial.name }}
+    </div>
+    <div>
+      <label><strong>Gender:</strong></label>
+      {{ currentTutorial.gender }}
+    </div>
+    <div>
+      <label><strong>Manager:</strong></label>
+      {{ currentTutorial.manager }}
+    </div>
+    <div>
+      <label><strong>Project:</strong></label>
+      {{ currentTutorial.project }}
+
+    </div>
+    <div>
+      <label><strong>City:</strong></label>
+      {{ currentTutorial.city }}
+    </div>
+    <div>
+      <label><strong>phoneno:</strong></label>
+      {{ currentTutorial.phoneno }}
+    </div>
+    <div>
+      <label><strong>Employee Status:</strong></label>
+      {{ currentTutorial.published ? "Recovered" : "Critical" }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/tutorials/{{ currentTutorial.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentTutorial">
+    <br />
+    <p>Please click on a Employee...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentTutorial.id" class="edit-form">
+    <h4>Employee List</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentTutorial.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Employee Name</label>
+        <input
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="currentTutorial.name"
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <input
+          class="form-control"
+          id="gender"
+          required
+          [(ngModel)]="currentTutorial.gender"
+          name="gender"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="manager">Manager</label>
+        <input
+          class="form-control"
+          id="manager"
+          required
+          [(ngModel)]="currentTutorial.manager"
+          name="manager"
+        />
+      </div>
+      <div class="form-group">
+        <label for="project">Project</label>
+        <input
+          class="form-control"
+          id="project"
+          required
+          [(ngModel)]="currentTutorial.project"
+          name="project"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="city">city</label>
+        <input
+          class="form-control"
+          id="city"
+          required
+          [(ngModel)]="currentTutorial.city"
+          name="city"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="phoneno">Phoneno</label>
+        <input
+          class="form-control"
+          id="phoneno"
+          required
+          [(ngModel)]="currentTutorial.phoneno"
+          name="phoneno"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Employee Status:</strong></label>
+        {{ currentTutorial.published ? "Recovered" : "Critical" }}
+      </div>
+    </form>
+
+    <button
+      class="badge badge-primary mr-2"
+      *ngIf="currentTutorial.published"
+      (click)="updatePublished(false)"
+    >
+      Critical
+    </button>
+    <button
+      *ngIf="!currentTutorial.published"
+      class="badge badge-primary mr-2"
+      (click)="updatePublished(true)"
+    >
+      Recovered
+    </button>
+
+    <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateTutorial()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentTutorial.id">
+    <br />
+    <p>Cannot access this Employee...</p>
+  </div>
+</ng-template>
